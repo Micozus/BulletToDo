@@ -10,10 +10,10 @@ router.get('/entries/:date', entryController.getEntriesByDate);
 
 router.get('/entry/:entryId', entryController.getEntryById);
 
-router.post('/add', entryController.postAddEntry);
+router.post('/entry/add', entryController.postAddEntry);
 
-router.put('/edit/:entryId', entryController.putEditEntry);
+router.put('/entry/edit/:entryId', entryController.putEditEntry);
 
-router.get('/delete/:entryId', entryController.postDeleteProduct);
+router.get('/entry/delete/:entryId', entryController.postDeleteProduct);
 
 module.exports = router;
