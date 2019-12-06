@@ -1,0 +1,30 @@
+{
+  "name": "bulletjournal-api",
+  "version": "1.0.0",
+  "description": "Node.js server with REST endpoints for BulletJournal project in CodersCamp",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "start-server": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sixtyto/BulletToDo.git"
+  },
+  "author": "Paweł Mikos (https://github.com/Micozus)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sixtyto/BulletToDo/issues"
+  },
+  "homepage": "https://github.com/sixtyto/BulletToDo#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.3.5",
+    "mongoose": "^5.7.13"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.1"
+  }
+}
