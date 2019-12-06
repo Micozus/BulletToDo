@@ -1,0 +1,25 @@
+{
+  "name": "bullettodo",
+  "version": "1.0.0",
+  "description": "BulletToDo is an amazing system that keeps a record of everything you could ever want to toss at it.\r It can be your task manager, sketchbook, journal, idea catcher, and much more!\r The BulletToDo is a organizational system in your browser that keeps track of anything you would like to in an coherent way.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sixtyto/BulletToDo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sixtyto/BulletToDo/issues"
+  },
+  "homepage": "https://github.com/sixtyto/BulletToDo#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.7",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.13",
+    "nodemon": "^2.0.1"
+  }
+}
