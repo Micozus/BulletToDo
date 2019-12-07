@@ -7,16 +7,16 @@ const TASKSTATE = ["incomplete", "complete", "migrated", "scheduled", "irrelevan
 const SIGNIFIED = ["none", "priority", "inspiration"];
 
 const entrySchema = new Schema({
-    entryType: {type: String, enum: ENTRYTYPE, required: true},
-    taskState: {type: String, enum: TASKSTATE},
-    significationType: {type: String, enum: SIGNIFIED, required: true},
-    _entryId: {type: Schema.Types.ObjectId, required: true},
-    _authorId: {type: Schema.Types.ObjectId, required: true},
-    date: {type: Date, required: true},
+    entryType: {type: String, enum: ENTRYTYPE, required: true, default: "task"},
+    taskState: {type: String, enum: TASKSTATE, default: "incomplete"},
+    significationType: {type: String, enum: SIGNIFIED, required: true, default: "none"},
+    _id: {type: Schema.Types.ObjectId, required: true},
+    _authorId: {type: Schema.Types.ObjectId, required: false},
+    date: {type: Date, required: false},
     body: {type: String, required: true}
 
-    // Jak stwierdzimy, że dodajemy
-    // nestedEntries: [entrySchema]
+    // nestedEntries: [this]
+
 });
 
 module.exports = mongoose.model("Entry", entrySchema);
