@@ -8,6 +8,8 @@ router.get('/entries', entryController.getEntries);
 
 router.post('/entries', entryController.postAddEntry);
 
+router.post('/entries/:id', entryController.postAddNestedEntry);
+
 router.get('/entries/:id', entryController.getEntryById);
 
 router.put('/entries/:id', entryController.putEditEntry);

@@ -13,9 +13,8 @@ const entrySchema = new Schema({
     _id: {type: Schema.Types.ObjectId, required: true},
     _authorId: {type: Schema.Types.ObjectId, required: false},
     date: {type: Date, required: false},
-    body: {type: String, required: true}
-
-    // nestedEntries: [this]
+    body: {type: String, required: true},
+    nestedEntries: [Schema.Types.ObjectId]
 
 });
 
