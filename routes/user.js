@@ -88,4 +88,33 @@ router.post("/login", (req, res, next) => {
     });
 });
 
+router.get("/", (req, res, next) => {
+  let token = req.headers["x-access-token"] || req.headers["authorization"];
+  // token = token.slice(7, token.length);
+
+  if (token) {
+    jwt.verify(token, "KEy", (err, decoded) => {
+      console.log(token);
+      if (err) {
+        return res.json({
+          success: false,
+          message: "Token is not valid"
+        });
+      } else {
+        req.decoded = decoded;
+        next();
+        return res.json({
+          success: true,
+          message: "Token valid"
+        });
+      }
+    });
+  } else {
+    return res.json({
+      success: false,
+      message: "Auth token is not supplied"
+    });
+  }
+});
+
 module.exports = router;
