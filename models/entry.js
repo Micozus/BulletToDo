@@ -11,7 +11,7 @@ const entrySchema = new Schema({
     taskState: {type: String, enum: TASKSTATE, default: "incomplete"},
     significationType: {type: String, enum: SIGNIFIED, required: true, default: "none"},
     _id: {type: Schema.Types.ObjectId, required: true},
-    _authorId: {type: Schema.Types.ObjectId, required: false},
+    _authorId: {type: Schema.Types.ObjectId, required: true},
     date: {type: Date, required: false},
     body: {type: String, required: true},
     nestedEntries: [Schema.Types.ObjectId]

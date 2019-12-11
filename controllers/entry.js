@@ -6,9 +6,13 @@ const convertStringToObjectID = (req) => {
     return mongoose.Types.ObjectId(`${idFromRequest}`);
 };
 
-const applyFilterToResponseObject = (res, dateFrom, dateTo) => {
+const getUserIdFromRequestToken = (req) => {
+    return req.decoded.userId;
+};
+
+const applyFilterToResponseObject = (res, userId, dateFrom, dateTo) => {
     if (dateFrom === undefined || dateTo === undefined) {
-        Entry.find((err, entries) => {
+        Entry.find({_authorId: userId}, (err, entries) => {
             if (err) return res.status(500)
                 .json({
                     "message": "There was an error while getting entries",
@@ -32,14 +36,15 @@ const applyFilterToResponseObject = (res, dateFrom, dateTo) => {
 };
 
 const createNewEntry = (req) => {
+    const userId = getUserIdFromRequestToken(req);
     const entryType = req.body.entryType;
     const taskState = req.body.taskState;
     const significationType = req.body.significationType;
-    const _authorId = req.body._authorId;
+    const _authorId = userId;
     const date = req.body.date;
     const body = req.body.body;
 
-    const entry = new Entry({
+    return new Entry({
         _id: new mongoose.Types.ObjectId(),
         entryType: entryType,
         taskState: taskState,
@@ -48,7 +53,6 @@ const createNewEntry = (req) => {
         date: date,
         body: body
     });
-    return entry;
 };
 
 const editEntry = (req, res, parentId, updateBody) => {
@@ -68,29 +72,31 @@ const editEntry = (req, res, parentId, updateBody) => {
 
 
 exports.getEntries = (req, res) => {
+    const userId = getUserIdFromRequestToken(req);
     if (req.query.ondate) {
         const dateOn = new Date(req.query.ondate);
         const tempDate = new Date(req.query.ondate);
         const nextDate = new Date(tempDate.setDate(tempDate.getDate() + 1));
-        applyFilterToResponseObject(res, dateOn, nextDate);
+        applyFilterToResponseObject(res, userId, dateOn, nextDate);
     } else if (req.query.fromdate && req.query.todate) {
         const dateFrom = new Date(req.query.fromdate);
         const dateTo = new Date(req.query.todate);
-        applyFilterToResponseObject(res, dateFrom, dateTo);
+        applyFilterToResponseObject(res, userId, dateFrom, dateTo);
     } else if (req.query.month) {
         const monthFromQuery = req.query.month.split("-");
         const startMonthDate = new Date().setFullYear(+monthFromQuery[0], +monthFromQuery[1] - 1, 1);
         const endMonthDate = new Date().setFullYear(+monthFromQuery[0], +monthFromQuery[1], 1);
-        applyFilterToResponseObject(res, startMonthDate, endMonthDate);
+        applyFilterToResponseObject(res, userId, startMonthDate, endMonthDate);
     } else {
-        applyFilterToResponseObject(res);
+        applyFilterToResponseObject(res, userId);
     }
 
 };
 
 exports.getEntryById = (req, res) => {
+    const userId = getUserIdFromRequestToken(req);
     const _idToSearch = convertStringToObjectID(req);
-    Entry.findOne({_id: _idToSearch}, (err, entry) => {
+    Entry.findOne({_id: _idToSearch, _authorId: userId}, (err, entry) => {
         if (err) return res.status(500)
             .json({
                 "message": "There was an error while getting entries",
@@ -162,7 +168,8 @@ exports.putEditEntry = (req, res) => {
 
 exports.deleteEntryById = (req, res) => {
     const _idToSearch = convertStringToObjectID(req);
-    Entry.findOneAndDelete({_id: _idToSearch}, (err, entry) => {
+    const userId = getUserIdFromRequestToken(req);
+    Entry.findOneAndDelete({_id: _idToSearch, _authorId: userId}, (err, entry) => {
         if (err) return res.status(404)
             .json({
                 "message": "Entry to delete was not found in database",
