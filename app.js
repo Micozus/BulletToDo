@@ -14,7 +14,7 @@ app.use((req, res, next) => {
     //Do zmiany, ustawienie adresu strony
     const APP_URL = "*";
     res.setHeader("Access-Control-Allow-Origin", APP_URL);
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, PATCH");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, x-access-token");
     next();
 });
