@@ -17,7 +17,7 @@ exports.verifyToken = (req, res, next) => {
 
     if (isPreflight(req)) {
         console.log('in prefligh');
-        res.set('Access-Control-Allow-Methods', 'GET');
+        res.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
         res.status(204).end();
         return
     }
