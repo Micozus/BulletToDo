@@ -4,7 +4,24 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
 
+const isPreflight = (req) => {
+    return (
+        req.method === 'OPTIONS' &&
+        req.headers['origin'] &&
+        req.headers['access-control-request-method']
+    )
+};
+
+
 exports.verifyToken = (req, res, next) => {
+
+    if (isPreflight(req)) {
+        console.log('in prefligh');
+        res.set('Access-Control-Allow-Methods', 'GET');
+        res.status(204).end();
+        return
+    }
+
     let token = req.headers["x-access-token"] || req.headers["authorization"];
 
     if (token) {
