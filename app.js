@@ -26,7 +26,7 @@ app.use((req, res, next) => userController.verifyToken(req, res, next));
 app.use("/api", entryRoutes);
 
 mongoConnect(() => {
-    app.listen(3000);
+    app.listen(process.env.PORT || 3000);
 });
 
 module.exports = app;
