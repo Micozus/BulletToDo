@@ -86,6 +86,7 @@ exports.getEntries = (req, res) => {
         const monthFromQuery = req.query.month.split("-");
         const startMonthDate = new Date().setFullYear(+monthFromQuery[0], +monthFromQuery[1] - 1, 1);
         const endMonthDate = new Date().setFullYear(+monthFromQuery[0], +monthFromQuery[1], 1);
+        console.log(startMonthDate,endMonthDate);
         applyFilterToResponseObject(res, userId, startMonthDate, endMonthDate);
     } else {
         applyFilterToResponseObject(res, userId);
