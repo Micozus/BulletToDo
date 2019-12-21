@@ -22,7 +22,7 @@ const applyFilterToResponseObject = (res, userId, dateFrom, dateTo) => {
                 .json({entries});
         });
     } else {
-        Entry.find({date: {$gte: dateFrom, $lt: dateTo}}, (err, entries) => {
+        Entry.find({_authorId: userId, date: {$gte: dateFrom, $lt: dateTo}}, (err, entries) => {
             if (err) return res.status(500)
                 .json({
                     "message": "There was an error while getting entries",
